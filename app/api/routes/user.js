@@ -12,9 +12,11 @@ const checkUserAuth = require('../middleware/userauth');
 const checkAdminAuth = require('../middleware/adminauth');
 const checkIsOwner = require('../middleware/isowner');
 
-router.post("/signup", bruteforce.prevent, UserController.user_signup);
+// router.post("/signup", bruteforce.prevent, UserController.user_signup);
+router.post("/signup", UserController.user_signup);
 
-router.post("/login", bruteforce.prevent, UserController.user_login);
+// router.post("/login", bruteforce.prevent, UserController.user_login);
+router.post("/login", UserController.user_login);
 
 router.get("/me", checkIsOwner, UserController.user_me);
 

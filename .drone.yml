@@ -1,0 +1,16 @@
+pipeline:
+  build-dev:
+    image: plugins/docker
+    repo: schvpn/api
+    secrets: [ docker_username, docker_password ]
+    tag: [ dev ]
+    when:
+      branch: dev
+
+  build-prod:
+    image: plugins/docker
+    repo: schvpn/api
+    secrets: [ docker_username, docker_password ]
+    tag: [ master ]
+    when:
+      branch: master

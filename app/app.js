@@ -4,7 +4,7 @@ const morgan = require('morgan');
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 var compression = require('compression')
-const config = require('./config.json')
+const config = require('./config')
 
 const userRoutes = require('./api/routes/user');
 const adminRouter = require('./api/routes/admin')
