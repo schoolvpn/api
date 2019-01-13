@@ -4,7 +4,9 @@ API Base using express with JWT token intergration. Uses Bcrypt to salt users pa
 ## Setup
 ## Docker
 1. Start MongoDB Container ```docker run --name MongoDB -d mongo:latest```
-2. Start API Docker Container ```docker run --name SchoolVPNAPI -d -p 80:80 -e API_MONGODB=mongodb://HOSTNAME:PORT/DATABASE -e API_JWT_SECRET=SuperSecretSecret -e API_PORT=80 schvpn/api:latest```
+2. Start API Docker Container ```docker run --name SchoolVPNAPI -d -p 80:80 -e MONGODB_HOST=localhost -e MONGODB_PORT=27017 -e MONGODB_DATABASE=API -e API_JWT_SECRET=SuperSecretSecret -e API_PORT=80 schvpn/api:latest```
+
+
 
 ## Endpoints
 
