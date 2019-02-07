@@ -4,7 +4,7 @@ const userSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     createdAt: {
         type: Date,
-        required: true
+        default: new Date()
     },
     lastloginAt: {
         type: Date

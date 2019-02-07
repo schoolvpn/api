@@ -6,7 +6,7 @@ const config = require('../../config')
 const User = require("../models/user");
 
 // User Signup
-exports.user_signup = (req, res, next) => {
+exports.userSignup = (req, res, next) => {
   User.find({ email: req.body.email })
     .exec()
     .then(user => {
@@ -32,7 +32,6 @@ exports.user_signup = (req, res, next) => {
           } else {
             const user = new User({
               _id: new mongoose.Types.ObjectId(),
-              createdAt: new Date(),
               lastloginAt: undefined,
               updatedAt: undefined,
               picture: "https://cdn2.iconfinder.com/data/icons/rcons-user/32/male-shadow-fill-circle-512.png",
@@ -62,7 +61,7 @@ exports.user_signup = (req, res, next) => {
 };
 
 // User Login
-exports.user_login = (req, res, next) => {
+exports.userLogin = (req, res, next) => {
   User.find({ email: req.body.email })
     .exec()
     .then(user => {
@@ -111,7 +110,7 @@ exports.user_login = (req, res, next) => {
 };
 
 // User Info
-exports.user_me = (req, res, next) => {
+exports.userMe = (req, res, next) => {
   User.find({_id: req.userData.userId})
     .then(user => {
       res.status(200).json({
@@ -135,36 +134,37 @@ exports.user_me = (req, res, next) => {
 };
 
 // User Edit
-exports.user_editme = (req, res, next) => {
+exports.userEditme = (req, res, next) => {
+  //This needs to me done better. It needs to be more Dynamic and less Static.
   if (req.body.role !== undefined) {
-      res.status(401).json({
-        message: "Cannot Change role"
-      });
+    res.status(401).json({
+      message: "Cannot Change role"
+    });
   }
   else if (req.body._id !== undefined) {
-      res.status(401).json({
-          message: "Cannot Change _id"
-        });
+    res.status(401).json({
+      message: "Cannot Change _id"
+    });
   }
   else if (req.body.createdAt !== undefined) {
-      res.status(401).json({
-          message: "Cannot Change createdAt"
-        });
+    res.status(401).json({
+      message: "Cannot Change createdAt"
+    });
   }
   else if (req.body.password !== undefined) {
-      res.status(401).json({
-          message: "Cannot Change password"
-        });
+    res.status(401).json({
+      message: "Cannot Change password"
+    });
   }
   else if (req.body.lastloginAt !== undefined) {
     res.status(401).json({
-        message: "Cannot Change lastloginAt"
-      });
+      message: "Cannot Change lastloginAt"
+    });
   }
   else if (req.body.updatedAt !== undefined) {
     res.status(401).json({
-        message: "Cannot Change lastloginAt"
-      });
+      message: "Cannot Change updatedAt"
+    });
   }
   else {
     var request = req.body
@@ -184,7 +184,7 @@ exports.user_editme = (req, res, next) => {
   }
 };
 
-exports.user_changepassword = (req, res, next) => {
+exports.userChangepassword = (req, res, next) => {
   User.find({ _id: req.userData.userId })
     .exec()
     .then(user => {
