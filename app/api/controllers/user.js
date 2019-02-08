@@ -65,12 +65,14 @@ exports.userLogin = (req, res, next) => {
   User.find({ email: req.body.email })
     .exec()
     .then(user => {
+      // Not Found
       if (user.length < 1) {
         return res.status(401).json({
           message: "Auth Failed"
         });
       }
       bcrypt.compare(req.body.password, user[0].password, (err, result) => {
+        // Incorrect Password
         if (err) {
           return res.status(401).json({
             message: "Auth Failed"
