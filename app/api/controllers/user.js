@@ -17,7 +17,7 @@ exports.userSignup = (req, res, next) => {
         });
       } 
       // Password Length Check
-      if (req.body.password.lengthls <= 3) {
+      if (req.body.password.length <= 3) {
         return res.status(409).json({
           message: "Password Must Be Longer Than 3 Characters"
         })
@@ -137,7 +137,6 @@ exports.userMe = (req, res, next) => {
 
 // User Edit
 exports.userEditme = (req, res, next) => {
-  //This needs to me done better. It needs to be more Dynamic and less Static.
   if (req.body.role !== undefined) {
     res.status(401).json({
       message: "Cannot Change role"
@@ -198,7 +197,7 @@ exports.userChangepassword = (req, res, next) => {
       bcrypt.compare(req.body.oldpassword, user[0].password, (err, result) => {
         if (!result) {
           return res.status(401).json({
-            message: "oldpassword Does not match"
+            message: "oldpassword Does not match current password"
           });
         }
         if (result) {
