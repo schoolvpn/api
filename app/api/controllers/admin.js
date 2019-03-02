@@ -7,21 +7,23 @@ const User = require("../models/user");
 // Admin List
 exports.adminUserList = (req, res, next) => {
     User.find({})
-      .then(user => {
-        newdata = {};
-        for (const s in user) {
-          const data = user[s]
-          newdata[data._id] = {
-            createdAt: data.createdAt,
-            lastloginAt: data.lastloginAt,
-            updatedAt: data.updatedAt,
-            picture: data.picture,
-            role: data.role,
-            firstname: data.firstname,
-            lastname: data.lastname,
-            email: data.email,
-            password: data.password
-          };
+      .then(users => {
+        newdata = [];
+        for (const user in users) {
+          const data = users[user]
+          newdata.push(
+            {
+              id: data._id,
+              createdAt: data.createdAt,
+              lastloginAt: data.lastloginAt,
+              updatedAt: data.updatedAt,
+              picture: data.picture,
+              role: data.role,
+              firstname: data.firstname,
+              lastname: data.lastname,
+              email: data.email,
+              password: data.password
+            })
         }
         res.status(200).json(newdata)
       })
