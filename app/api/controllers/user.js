@@ -54,12 +54,12 @@ exports.userSignup = (req, res, next) => {
                   to: req.body.email,
                   from: 'noreply@schoolvpn.ca',
                   subject: 'Email Authentication',
-                  text: `Here is your email authentication code ${authcode}`,
-                  html: `Here is your email authentication code: ${authcode}`
+                  text: `Here is your email authentication code https://api.schoolvpn.ca/user/verify/${authcode}`,
+                  html: `Here is your email authentication code: https://api.schoolvpn.ca/user/verify/${authcode}`
                 };
                 sgMail.send(msg);
                 res.status(201).json({
-                  message: "Account Successfully Created"
+                  message: "Please Check Your Email For Verification Link."
                 });
               })
               .catch(err => {
