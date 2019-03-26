@@ -24,4 +24,6 @@ router.put("/me", checkIsOwner, UserController.userEditme);
 
 router.post("/changepassword", checkIsOwner, UserController.userChangepassword);
 
+router.post("/verify/:authCode", UserController.userVerifyAccount);
+
 module.exports = router;

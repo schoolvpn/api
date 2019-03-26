@@ -6,7 +6,7 @@ const userSchema = mongoose.Schema({
         type: Date,
         default: new Date()
     },
-    lastloginAt: {
+    lastoginAt: {
         type: Date
     },
     updatedAt: {
@@ -18,6 +18,14 @@ const userSchema = mongoose.Schema({
     role: {
         type: String
     }, 
+    verified: {
+        type: Boolean,
+        required: true
+    },
+    authCode: {
+        type: String,
+        required: true
+    },
     firstname: {
         type: String,
         required: true
