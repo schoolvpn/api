@@ -297,10 +297,11 @@ exports.userVerifyAccount = (req, res, next) => {
               message: "Account Successfully Verified"
             })
           );
-      } else {
-        res.status(401).json({
-          message: "Incorrect Verification Code"
-        })
       }
+  })
+  .catch(error => {
+    res.status(401).json({
+      message: "Incorrect Verification Code"
+    })
   })
 };
