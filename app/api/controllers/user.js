@@ -54,8 +54,8 @@ exports.userSignup = (req, res, next) => {
                   to: req.body.email,
                   from: 'noreply@schoolvpn.ca',
                   subject: 'Email Authentication',
-                  text: `Here is your email authentication code https://api.schoolvpn.ca/user/verify/${authcode}`,
-                  html: `Here is your email authentication code: https://api.schoolvpn.ca/user/verify/${authcode}`
+                  text: `Here is your email authentication code https://dash.schoolvpn.ca/verify/${authcode}`,
+                  html: `Here is your email authentication code: https://dash.schoolvpn.ca/verify/${authcode}`
                 };
                 sgMail.send(msg);
                 res.status(201).json({
