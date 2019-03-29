@@ -44,7 +44,11 @@ const userSchema = mongoose.Schema({
         type: String, 
         required: true,
         match: /.{3,}/ 
-    }
+    },
+    resetCode: { 
+        type: String, 
+        required: true
+    },
 });
 
 module.exports = mongoose.model('User', userSchema);

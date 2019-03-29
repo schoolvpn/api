@@ -22,8 +22,13 @@ router.get("/me", checkIsOwner, UserController.userMe);
 
 router.put("/me", checkIsOwner, UserController.userEditme);
 
-router.post("/changepassword", checkIsOwner, UserController.userChangepassword);
+router.post("/password/change", checkIsOwner, UserController.userChangePassword);
 
 router.post("/verify/:authCode", UserController.userVerifyAccount);
+
+router.post("/password/reset/:resetCode", UserController.userResetPassword);
+
+router.post("/password/reset", UserController.userSendResetPassword);
+
 
 module.exports = router;

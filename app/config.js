@@ -1,6 +1,6 @@
 module.exports = {
-    mongodb: `mongodb://${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/${process.env.MONGODB_DATABASE}`, // "mongodb://HOSTNAME:PORT/DATABASE"
-    jwt_secret: process.env.API_JWT_SECRET, // SuperSecretSecret
+    mongodb: `mongodb://localhost:27017/API`, // "mongodb://HOSTNAME:PORT/DATABASE"
+    jwt_secret: 'APISECRET', // SuperSecretSecret
     port: 80 || process.env.API_PORT, // 80
-    sendgrid: process.env.SENDGRID_API_KEY
+    sendgrid: "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"
 };

@@ -45,7 +45,8 @@ exports.userSignup = (req, res, next) => {
               firstname: req.body.firstname,
               lastname: req.body.lastname,
               email: req.body.email,
-              password: hash
+              password: hash,
+              resetCode: undefined
             });
             user
               .save()
@@ -54,8 +55,8 @@ exports.userSignup = (req, res, next) => {
                   to: req.body.email,
                   from: 'noreply@schoolvpn.ca',
                   subject: 'Email Authentication',
-                  text: `Here is your email authentication code https://dash.schoolvpn.ca/verify/${authcode}`,
-                  html: `Here is your email authentication code: https://dash.schoolvpn.ca/verify/${authcode}`
+                  text: `Here is your email authentication link: https://dash.schoolvpn.ca/verify/${authcode}`,
+                  html: `Here is your email authentication link: https://dash.schoolvpn.ca/verify/${authcode}`
                 };
                 sgMail.send(msg);
                 res.status(201).json({
@@ -250,7 +251,7 @@ exports.userChangepassword = (req, res, next) => {
   })
 };
 
-exports.userChangepassword = (req, res, next) => {
+exports.userChangePassword = (req, res, next) => {
   User.find({ _id: req.userData.userId})
     .exec()
     .then(user => {
@@ -286,19 +287,58 @@ exports.userChangepassword = (req, res, next) => {
   })
 };
 
-exports.userVerifyAccount = (req, res, next) => {
-  User.find({ authCode: req.params.authCode })
+exports.userResetPassword = (req, res, next) => {
+  bcrypt.hash(req.body.password, 10, (err, hash) => {
+    User.findOneAndUpdate({resetCode: req.params.resetCode}, {password: hash})
+    .then(
+      res.status(200).json({
+        message: "Account Password Successfully Changed"
+      })
+    )
+    .catch(error => {
+      res.status(401).json({
+        message: "Incorrect Reset Code"
+      })
+    })
+  })
+};
+
+exports.userSendResetPassword = (req, res, next) => {
+  User.find({ email: req.body.email})
     .exec()
-    .then(code => {
-      if (req.params.authCode === code[0].authCode) {
-        User.findOneAndUpdate({_id: code[0]._id}, {verified: true})
+    .then(user => {
+      if (user.length < 1) {
+        return res.status(401).json({
+          message: "Account Not Found"
+        });
+      } else {
+        const resetcode = uniqueString()
+        console.log(resetcode)
+        const msg = {
+          to: req.body.email,
+          from: 'noreply@schoolvpn.ca',
+          subject: 'Reset Email',
+          text: `Reset Email: https://dash.schoolvpn.ca/reset/${resetcode}`,
+          html: `Reset Email: https://dash.schoolvpn.ca/reset/${resetcode}`
+        };
+        sgMail.send(msg)
+        User.findOneAndUpdate({email: req.body.email}, {resetCode: resetcode})
           .then(
             res.status(200).json({
-              message: "Account Successfully Verified"
+              message: "Password Reset Email Sent"
             })
-          );
+          )
       }
   })
+};
+
+exports.userVerifyAccount = (req, res, next) => {
+  User.findOneAndUpdate({authCode: req.params.authCode}, {verified: true})
+  .then(
+    res.status(200).json({
+      message: "Account Successfully Verified"
+    })
+  )
   .catch(error => {
     res.status(401).json({
       message: "Incorrect Verification Code"
