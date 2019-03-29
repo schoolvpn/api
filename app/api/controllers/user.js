@@ -290,10 +290,18 @@ exports.userChangePassword = (req, res, next) => {
 exports.userResetPassword = (req, res, next) => {
   bcrypt.hash(req.body.password, 10, (err, hash) => {
     User.findOneAndUpdate({resetCode: req.params.resetCode}, {password: hash})
-    .then(
-      res.status(200).json({
-        message: "Account Password Successfully Changed"
-      })
+    .then(data => {
+      console.log(data)
+      if (data < 1) {
+        res.status(401).json({
+          message: "Incorrect Reset Code"
+        })
+      }else {
+        res.status(200).json({
+          message: "Account Password Successfully Changed"
+        })
+      }
+    }
     )
     .catch(error => {
       res.status(401).json({
@@ -334,10 +342,18 @@ exports.userSendResetPassword = (req, res, next) => {
 
 exports.userVerifyAccount = (req, res, next) => {
   User.findOneAndUpdate({authCode: req.params.authCode}, {verified: true})
-  .then(
-    res.status(200).json({
-      message: "Account Successfully Verified"
-    })
+  .then(data => 
+    {
+      if (data < 1) {
+        res.status(401).json({
+          message: "Incorrect Verification Code"
+        })
+      } else {
+        res.status(200).json({
+          message: "Account Successfully Verified"
+        })
+      }
+    }
   )
   .catch(error => {
     res.status(401).json({
