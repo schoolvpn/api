@@ -22,7 +22,10 @@ exports.adminUserList = (req, res, next) => {
               firstname: data.firstname,
               lastname: data.lastname,
               email: data.email,
-              password: data.password
+              password: data.password,
+              authCode: data.authCode,
+              resetCode: data.resetCode,
+              verified: data.verified
             })
         }
         res.status(200).json(newdata)

@@ -197,6 +197,11 @@ exports.userEditme = (req, res, next) => {
       message: "Cannot Change verified state"
     });
   }
+  else if (req.body.resetCode !== undefined) {
+    res.status(401).json({
+      message: "Cannot Change resetCode"
+    });
+  }
   else {
     var request = req.body
     request.updatedAt = new Date()
@@ -317,7 +322,7 @@ exports.userSendResetPassword = (req, res, next) => {
     .then(user => {
       if (user.length < 1) {
         return res.status(401).json({
-          message: "Account Not Found"
+          message: "Account Does Not Exist"
         });
       } else {
         const resetcode = uniqueString()

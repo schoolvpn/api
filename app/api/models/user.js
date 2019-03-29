@@ -24,7 +24,8 @@ const userSchema = mongoose.Schema({
     },
     authCode: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     firstname: {
         type: String,
@@ -47,7 +48,8 @@ const userSchema = mongoose.Schema({
     },
     resetCode: { 
         type: String, 
-        required: true
+        required: true,
+        unique: true
     },
 });
 
