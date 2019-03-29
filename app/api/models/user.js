@@ -47,8 +47,7 @@ const userSchema = mongoose.Schema({
         match: /.{3,}/ 
     },
     resetCode: { 
-        type: String, 
-        required: true,
+        type: String,
         unique: true
     },
 });
