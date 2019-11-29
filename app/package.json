@@ -18,7 +18,7 @@
     "express-brute": "^1.0.1",
     "express-brute-mongoose": "^1.0.2",
     "jsonwebtoken": "^8.4.0",
-    "mongoose": "^5.3.14",
+    "mongoose": "^5.7.5",
     "morgan": "^1.9.1",
     "unique-string": "^1.0.0"
   },
